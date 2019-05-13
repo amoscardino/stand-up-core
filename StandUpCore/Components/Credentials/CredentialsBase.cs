@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazor.Extensions.Storage;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
+using StandUpCore.Models;
+using StandUpCore.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +13,37 @@ namespace StandUpCore
 {
     public class CredentialsBase : ComponentBase
     {
-        public CredentialsBase()
+        [Inject]
+        protected LocalStorage LocalStorage { get; set; }
+
+        [Inject]
+        protected ILogger<CredentialsBase> Logger { get; set; }
+
+        [Inject]
+        protected CredentialService CredentialService { get; set; }
+
+        protected List<JiraCredential> Credentials { get; set; } = new List<JiraCredential>();
+
+        protected JiraCredential NewCredential { get; set; }
+
+        protected override async Task OnInitAsync()
         {
+            Credentials = await CredentialService.GetCredentialsAsync();
+            NewCredential = new JiraCredential();
+        }
+
+        protected async Task SaveNewCredential()
+        {
+            await CredentialService.AddCredentialAsync(NewCredential);
+            Credentials = await CredentialService.GetCredentialsAsync();
+            NewCredential = new JiraCredential();
+        }
+
+        protected async Task DeleteCredential(Guid id)
+        {
+            await CredentialService.RemoveCredentialAsync(id);
+
+            Credentials = await CredentialService.GetCredentialsAsync();
         }
     }
 }
