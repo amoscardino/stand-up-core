@@ -2,3 +2,13 @@
 @inherits StandUpCore.StandUpBase
 
 <p>Hello Stand Up!</p>
+
+@if (JiraTask != null)
+{
+    <p>Key = @JiraTask.Key</p>
+    <p>Project = @JiraTask.Project</p>
+    <p>Summary = @JiraTask.Summary</p>
+    <p>OriginalEstimate = @JiraTask.OriginalEstimate</p>
+    <p>HoursRemaining = @JiraTask.HoursRemaining</p>
+    <p>HoursComplete = @JiraTask.HoursComplete</p>
+}

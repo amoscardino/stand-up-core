@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using StandUpCore.Models;
+using StandUpCore.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,14 @@ namespace StandUpCore
 {
     public class StandUpBase : ComponentBase
     {
-        public StandUpBase()
+        [Inject]
+        protected JiraService JiraService { get; set; }
+
+        protected JiraTask JiraTask { get; set; }
+
+        protected override async Task OnInitAsync()
         {
+            JiraTask = await JiraService.GetTaskAsync("P2-87");
         }
     }
 }
