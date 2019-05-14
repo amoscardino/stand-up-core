@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using StandUpCore.Models;
+using StandUpCore.Common;
 using StandUpCore.Services;
 using System;
 using System.Collections.Generic;

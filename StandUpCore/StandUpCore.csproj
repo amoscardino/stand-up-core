@@ -20,4 +20,8 @@
         <PackageReference Include="Microsoft.CSharp" Version="4.4.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\StandUpCore.Common\StandUpCore.Common.csproj" />
+    </ItemGroup>
+
 </Project>

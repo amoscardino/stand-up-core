@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandUpCore.Common", "StandUpCore.Common\StandUpCore.Common.csproj", "{A29EDC90-7B0A-47EB-8C1F-29D4EFF14E8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandUpCore.Functions", "StandUpCore.Functions\StandUpCore.Functions.csproj", "{DDAB704E-EE08-4379-A760-A1C75B6A1294}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{8E528CE6-CE3D-40A5-8920-AA2BF3507D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E528CE6-CE3D-40A5-8920-AA2BF3507D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E528CE6-CE3D-40A5-8920-AA2BF3507D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29EDC90-7B0A-47EB-8C1F-29D4EFF14E8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29EDC90-7B0A-47EB-8C1F-29D4EFF14E8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29EDC90-7B0A-47EB-8C1F-29D4EFF14E8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29EDC90-7B0A-47EB-8C1F-29D4EFF14E8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDAB704E-EE08-4379-A760-A1C75B6A1294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDAB704E-EE08-4379-A760-A1C75B6A1294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDAB704E-EE08-4379-A760-A1C75B6A1294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDAB704E-EE08-4379-A760-A1C75B6A1294}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

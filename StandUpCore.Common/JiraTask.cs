@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StandUpCore.Models
+namespace StandUpCore.Common
 {
     public class JiraTask
     {
