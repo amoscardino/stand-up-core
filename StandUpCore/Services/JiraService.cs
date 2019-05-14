@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace StandUpCore.Services
 {
@@ -39,34 +40,15 @@ namespace StandUpCore.Services
 
         private async Task<JiraTask> GetTaskAsync(string key, JiraCredential credential)
         {
-            SetAuthHeader(credential);
+            var url = "https://standupcore-functions.azurewebsites.net/api/jirafunction";
+            var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-            var issue = await _httpClient.GetJsonAsync<dynamic>($"{credential.SiteUrl}/rest/api/2/{key}");
+            queryString.Add("key", key);
+            queryString.Add("site", credential.SiteUrl);
+            queryString.Add("email", credential.Email);
+            queryString.Add("token", credential.ApiToken);
 
-            if (issue == null)
-                return null;
-
-            try
-            {
-                return new JiraTask
-                {
-                    Key = issue.key,
-                    Project = issue.fields.project.name,
-                    Summary = issue.fields.summary,
-                    OriginalEstimate = (decimal)issue.fields.timetracking.originalEstimateSeconds / 60 / 60,
-                    HoursRemaining = (decimal)issue.fields.timetracking.remainingEstimateSeconds / 60 / 60,
-                    HoursComplete = (decimal)issue.fields.timetracking.timeSpentSeconds / 60 / 60
-                };
-            }
-            catch { return null; }
-        }
-
-        private void SetAuthHeader(JiraCredential credential)
-        {
-            var headerValue = $"{credential.Email}:{credential.ApiToken}";
-            var headerValueEncoded = Convert.ToBase64String(Encoding.ASCII.GetBytes(headerValue));
-
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", headerValueEncoded);
+            return await _httpClient.GetJsonAsync<JiraTask>($"{url}?{queryString}");
         }
     }
 }
