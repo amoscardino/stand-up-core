@@ -34,7 +34,7 @@ namespace StandUpCore
 
         protected override async Task OnInitAsync()
         {
-            HasCredentials = (await CredentialService.GetCredentialsAsync()).Any();
+            HasCredentials = (await CredentialService.GetCredentialsAsync())?.Any() ?? false;
 
             CurrentTasks = new List<JiraTask>();
             DoneTasks = new List<JiraTask>();
