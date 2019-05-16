@@ -20,7 +20,9 @@ namespace StandUpCore.Services
 
         public async Task<List<JiraCredential>> GetCredentialsAsync()
         {
-            return await _localStorage.GetItem<List<JiraCredential>>(STORAGE_KEY);
+            var credentials = await _localStorage.GetItem<List<JiraCredential>>(STORAGE_KEY);
+
+            return credentials ?? new List<JiraCredential>();
         }
 
         public async Task AddCredentialAsync(JiraCredential credential)
