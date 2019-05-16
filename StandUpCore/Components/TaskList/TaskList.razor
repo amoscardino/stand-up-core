@@ -1,0 +1,53 @@
+﻿@inherits TaskListBase
+
+<div class="row mb-3">
+    <div class="col-5">
+        <div class="form-group">
+            <label>
+                @Label
+            </label>
+
+            <input type="text" class="form-control" bind="@Keys" onblur="@GetTasksAsync" />
+
+            <small class="form-text text-muted text-right">
+                Separate keys with spaces.
+            </small>
+        </div>
+    </div>
+
+    <div class="col-7">
+        <table class="table table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Summary</th>
+                    <th>OE</th>
+                    <th>HR</th>
+                    <th>HC</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var task in Tasks)
+                {
+                    <tr>
+                        <td>@task.Key</td>
+                        <td>@task.Summary</td>
+                        <td>@task.OriginalEstimate</td>
+                        <td>@task.HoursRemaining</td>
+                        <td>@task.HoursComplete</td>
+                    </tr>
+                }
+
+                @if (!Tasks.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            none
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

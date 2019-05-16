@@ -48,7 +48,14 @@ namespace StandUpCore.Services
             queryString.Add("email", credential.Email);
             queryString.Add("token", credential.ApiToken);
 
-            return await _httpClient.GetJsonAsync<JiraTask>($"{url}?{queryString}");
+            try
+            {
+                return await _httpClient.GetJsonAsync<JiraTask>($"{url}?{queryString}");
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

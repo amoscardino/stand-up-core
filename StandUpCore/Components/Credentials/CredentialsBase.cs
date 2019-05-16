@@ -13,12 +13,6 @@ namespace StandUpCore
     public class CredentialsBase : ComponentBase
     {
         [Inject]
-        protected LocalStorage LocalStorage { get; set; }
-
-        [Inject]
-        protected ILogger<CredentialsBase> Logger { get; set; }
-
-        [Inject]
         protected CredentialService CredentialService { get; set; }
 
         protected List<JiraCredential> Credentials { get; set; } = new List<JiraCredential>();

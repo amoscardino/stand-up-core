@@ -19,7 +19,7 @@ namespace StandUpCore.Functions
         private static readonly HttpClient _httpClient = new HttpClient();
 
         [FunctionName("JiraFunction")]
-        public static async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")]HttpRequest req, ILogger log)
+        public static async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get", "options")]HttpRequest req, ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -47,15 +47,20 @@ namespace StandUpCore.Functions
 
             try
             {
-                var task = new JiraTask
-                {
-                    Key = issue.key,
-                    Project = issue.fields.project.name,
-                    Summary = issue.fields.summary,
-                    OriginalEstimate = (decimal)issue.fields.timetracking.originalEstimateSeconds / 60 / 60,
-                    HoursRemaining = (decimal)issue.fields.timetracking.remainingEstimateSeconds / 60 / 60,
-                    HoursComplete = (decimal)issue.fields.timetracking.timeSpentSeconds / 60 / 60
-                };
+                var task = new JiraTask();
+
+                task.Key = issue.key;
+                task.Project = issue.fields.project.name;
+                task.Summary = issue.fields.summary;
+
+                if (issue.fields.timetracking?.originalEstimateSeconds != null)
+                    task.OriginalEstimate = (decimal)issue.fields.timetracking.originalEstimateSeconds / 60 / 60;
+
+                if (issue.fields.timetracking?.remainingEstimateSeconds != null)
+                    task.HoursRemaining = (decimal)issue.fields.timetracking.remainingEstimateSeconds / 60 / 60;
+
+                if (issue.fields.timetracking?.timeSpentSeconds != null)
+                    task.HoursComplete = (decimal)issue.fields.timetracking.timeSpentSeconds / 60 / 60;
 
                 return new OkObjectResult(task);
             }

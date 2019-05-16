@@ -1,14 +1,64 @@
 ﻿@page "/"
 @inherits StandUpCore.StandUpBase
 
-<p>Hello Stand Up!</p>
-
-@if (JiraTask != null)
+@if (!HasCredentials)
 {
-    <p>Key = @JiraTask.Key</p>
-    <p>Project = @JiraTask.Project</p>
-    <p>Summary = @JiraTask.Summary</p>
-    <p>OriginalEstimate = @JiraTask.OriginalEstimate</p>
-    <p>HoursRemaining = @JiraTask.HoursRemaining</p>
-    <p>HoursComplete = @JiraTask.HoursComplete</p>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">
+            Missing Credentials!
+        </h4>
+
+        <p class="mb-0">
+            This app can only work if you add some Jira Credentials. <NavLink href="credentials" class="alert-link">Go add some credentials before you start.</NavLink>
+        </p>
+    </div>
 }
+
+<div class="navbar navbar-light bg-light border rounded mt-3 mb-4">
+    <div class="form-inline">
+        @*<button class="btn btn-outline-secondary btn-sm" type="button" onclick="@OnInit">Clear</button>*@
+    </div>
+
+    <div class="form-inline">
+        <button class="btn btn-success btn-sm" type="button" onclick="@GenerateAsync">Generate</button>
+    </div>
+</div>
+
+<TaskList Label="Current Tasks" bind-Tasks="@CurrentTasks" />
+<TaskList Label="Done Tasks" bind-Tasks="@DoneTasks" />
+<TaskList Label="Blocked Tasks" bind-Tasks="@BlockedTasks" />
+
+<div class="form-inline">
+    <fieldset class="form-group mb-1">
+        <select class="form-control" bind="@PreviousDayLabel">
+            <option value="Yesterday">Yesterday</option>
+            <option value="Friday">Friday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Monday">Monday</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+    </fieldset>
+</div>
+
+<fieldset class="form-group">
+    <textarea bind="@PreviousDaySummary" class="form-control" rows="2"></textarea>
+</fieldset>
+
+<fieldset class="form-group">
+    <label>
+        Today
+    </label>
+
+    <textarea bind="@TodaySummary" class="form-control" rows="2"></textarea>
+</fieldset>
+
+<fieldset class="form-group">
+    <label>
+        Impediments
+    </label>
+
+    <textarea bind="@BlockedSummary" class="form-control" rows="2" placeholder="none"></textarea>
+</fieldset>
