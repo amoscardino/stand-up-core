@@ -1,5 +1,6 @@
 ﻿using Blazor.Extensions.Storage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 using StandUpCore.Models;
 using StandUpCore.Services;
@@ -17,12 +18,11 @@ namespace StandUpCore
 
         protected List<JiraCredential> Credentials { get; set; } = new List<JiraCredential>();
 
-        protected JiraCredential NewCredential { get; set; }
+        protected JiraCredential NewCredential { get; set; } = new JiraCredential();
 
         protected override async Task OnInitAsync()
         {
             Credentials = await CredentialService.GetCredentialsAsync();
-            NewCredential = new JiraCredential();
         }
 
         protected async Task SaveNewCredential()
