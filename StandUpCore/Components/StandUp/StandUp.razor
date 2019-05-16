@@ -3,7 +3,7 @@
 
 @if (!HasCredentials)
 {
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger mb-4" role="alert">
         <h4 class="alert-heading">
             Missing Credentials!
         </h4>
@@ -13,16 +13,6 @@
         </p>
     </div>
 }
-
-<div class="navbar navbar-light bg-light border rounded mt-3 mb-4">
-    <div class="form-inline">
-        @*<button class="btn btn-outline-secondary btn-sm" type="button" onclick="@OnInit">Clear</button>*@
-    </div>
-
-    <div class="form-inline">
-        <button class="btn btn-success btn-sm" type="button" onclick="@GenerateAsync">Generate</button>
-    </div>
-</div>
 
 <TaskList Label="Current Tasks" bind-Tasks="@CurrentTasks" />
 <TaskList Label="Done Tasks" bind-Tasks="@DoneTasks" />
@@ -62,3 +52,7 @@
 
     <textarea bind="@BlockedSummary" class="form-control" rows="2" placeholder="none"></textarea>
 </fieldset>
+
+<div class="text-center mt-4 mb-5">
+    <button class="btn btn-success btn-lg" type="button" onclick="@GenerateAsync">@GenerateLabel</button>
+</div>

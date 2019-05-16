@@ -30,6 +30,8 @@ namespace StandUpCore
         public string TodaySummary { get; set; }
         public string BlockedSummary { get; set; }
 
+        protected string GenerateLabel { get; set; }
+
         protected override async Task OnInitAsync()
         {
             HasCredentials = (await CredentialService.GetCredentialsAsync()).Any();
@@ -42,6 +44,8 @@ namespace StandUpCore
             PreviousDaySummary = string.Empty;
             TodaySummary = string.Empty;
             BlockedSummary = string.Empty;
+
+            GenerateLabel = "Generate!";
         }
 
         protected async Task GenerateAsync()
@@ -86,6 +90,15 @@ namespace StandUpCore
 
             // window.copyToClipboard is a custom function declared at the bottom of wwwroot/index.html
             await JSRuntime.InvokeAsync<string>("copyToClipboard", standup.ToString());
+
+            GenerateLabel = "Copied to Clipboard!";
+            StateHasChanged();
+
+            await Task.Delay(2500).ContinueWith(t =>
+            {
+                GenerateLabel = "Generate!";
+                StateHasChanged();
+            });
         }
 
         private string GetLine(JiraTask task)
