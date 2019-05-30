@@ -43,9 +43,9 @@ namespace StandUpCore
 
                 if (task != null)
                     Tasks.Add(task);
-            }
 
-            await TasksChanged.InvokeAsync(Tasks);
+                await TasksChanged.InvokeAsync(Tasks);
+            }
         }
     }
 }

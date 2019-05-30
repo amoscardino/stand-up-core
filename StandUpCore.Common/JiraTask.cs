@@ -13,5 +13,8 @@ namespace StandUpCore.Common
         public decimal OriginalEstimate { get; set; }
         public decimal HoursRemaining { get; set; }
         public decimal HoursComplete { get; set; }
+
+        public string GetLine()
+            => $"Project: {Project}, Task: {Key}, OE: {OriginalEstimate}, HR: {HoursRemaining}, HC: {HoursComplete} -- {Summary}";
     }
 }

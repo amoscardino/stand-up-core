@@ -14,13 +14,13 @@
     </div>
 }
 
-<TaskList Label="Current Tasks" bind-Tasks="@CurrentTasks" />
-<TaskList Label="Done Tasks" bind-Tasks="@DoneTasks" />
-<TaskList Label="Blocked Tasks" bind-Tasks="@BlockedTasks" />
+<TaskList Label="Current Tasks" bind-Tasks="@StandUp.CurrentTasks" />
+<TaskList Label="Done Tasks" bind-Tasks="@StandUp.DoneTasks" />
+<TaskList Label="Blocked Tasks" bind-Tasks="@StandUp.BlockedTasks" />
 
 <div class="form-inline">
     <fieldset class="form-group mb-1">
-        <select class="form-control" bind="@PreviousDayLabel">
+        <select class="form-control" bind="@StandUp.PreviousDayLabel">
             <option value="Yesterday">Yesterday</option>
             <option value="Friday">Friday</option>
             <option value="Thursday">Thursday</option>
@@ -34,7 +34,7 @@
 </div>
 
 <fieldset class="form-group">
-    <textarea bind="@PreviousDaySummary" class="form-control" rows="2"></textarea>
+    <textarea bind="@StandUp.PreviousDaySummary" class="form-control" rows="2"></textarea>
 </fieldset>
 
 <fieldset class="form-group">
@@ -42,7 +42,7 @@
         Today
     </label>
 
-    <textarea bind="@TodaySummary" class="form-control" rows="2"></textarea>
+    <textarea bind="@StandUp.TodaySummary" class="form-control" rows="2"></textarea>
 </fieldset>
 
 <fieldset class="form-group">
@@ -50,7 +50,7 @@
         Impediments
     </label>
 
-    <textarea bind="@BlockedSummary" class="form-control" rows="2" placeholder="none"></textarea>
+    <textarea bind="@StandUp.BlockedSummary" class="form-control" rows="2" placeholder="none"></textarea>
 </fieldset>
 
 <div class="text-center mt-4 mb-5">
