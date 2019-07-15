@@ -35,7 +35,7 @@ namespace StandUpCore.Models
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine("Current:");
+            sb.AppendLine("*Current*:");
 
             foreach (var task in CurrentTasks)
                 sb.AppendLine(task.GetLine());
@@ -44,7 +44,7 @@ namespace StandUpCore.Models
                 sb.AppendLine("none");
 
             sb.AppendLine();
-            sb.AppendLine("Done:");
+            sb.AppendLine("*Done*:");
 
             foreach (var task in DoneTasks)
                 sb.AppendLine(task.GetLine());
@@ -53,7 +53,7 @@ namespace StandUpCore.Models
                 sb.AppendLine("none");
 
             sb.AppendLine();
-            sb.AppendLine("Blocked:");
+            sb.AppendLine("*Blocked*:");
 
             foreach (var task in BlockedTasks)
                 sb.AppendLine(task.GetLine());
@@ -62,13 +62,13 @@ namespace StandUpCore.Models
                 sb.AppendLine("none");
 
             sb.AppendLine();
-            sb.Append($"{PreviousDayLabel}: ");
+            sb.Append($"*{PreviousDayLabel}*: ");
             sb.AppendLine(string.IsNullOrWhiteSpace(PreviousDaySummary) ? "none" : PreviousDaySummary);
             sb.AppendLine();
-            sb.Append("Today: ");
+            sb.Append("*Today*: ");
             sb.AppendLine(string.IsNullOrWhiteSpace(TodaySummary) ? "none" : TodaySummary);
             sb.AppendLine();
-            sb.Append("Impediments: ");
+            sb.Append("*Impediments*: ");
             sb.Append(string.IsNullOrWhiteSpace(BlockedSummary) ? "none" : BlockedSummary);
 
             return sb.ToString();

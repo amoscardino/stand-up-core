@@ -7,7 +7,7 @@
                 @Label
             </label>
 
-            <input type="text" class="form-control" bind="@Keys" onblur="@GetTasksAsync" />
+            <input type="text" class="form-control" @bind="@Keys" @onblur="@GetTasksAsync" />
 
             <small class="form-text text-muted text-right">
                 Separate keys with spaces.
