@@ -14,13 +14,13 @@ namespace StandUpCore
     public class CredentialsBase : ComponentBase
     {
         [Inject]
-        protected CredentialService CredentialService { get; set; }
+        public CredentialService CredentialService { get; set; }
 
         protected List<JiraCredential> Credentials { get; set; } = new List<JiraCredential>();
 
         protected JiraCredential NewCredential { get; set; } = new JiraCredential();
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
             Credentials = await CredentialService.GetCredentialsAsync();
         }

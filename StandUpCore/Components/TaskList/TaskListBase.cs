@@ -12,20 +12,20 @@ namespace StandUpCore
     public class TaskListBase : ComponentBase
     {
         [Inject]
-        protected JiraService JiraService { get; set; }
+        public JiraService JiraService { get; set; }
 
         [Parameter]
-        protected string Label { get; set; }
+        public string Label { get; set; }
 
         [Parameter]
-        protected List<JiraTask> Tasks { get; set; }
+        public List<JiraTask> Tasks { get; set; }
 
         [Parameter]
-        protected EventCallback<List<JiraTask>> TasksChanged { get; set; }
+        public EventCallback<List<JiraTask>> TasksChanged { get; set; }
 
         protected string Keys { get; set; }
 
-        protected override void OnInit()
+        protected override void OnInitialized()
         {
             Keys = string.Empty;
             Tasks = new List<JiraTask>();

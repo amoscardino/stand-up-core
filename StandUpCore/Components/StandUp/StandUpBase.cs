@@ -7,6 +7,7 @@ using StandUpCore.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,10 +16,10 @@ namespace StandUpCore
     public class StandUpBase : ComponentBase
     {
         [Inject]
-        protected CredentialService CredentialService { get; set; }
+        public CredentialService CredentialService { get; set; }
 
         [Inject]
-        protected IJSRuntime JSRuntime { get; set; }
+        public IJSRuntime JSRuntime { get; set; }
 
         protected StandUp StandUp { get; set; }
 
@@ -26,7 +27,7 @@ namespace StandUpCore
 
         protected string GenerateLabel { get; set; }
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnInitializedAsync()
         {
             StandUp = new StandUp();
             HasCredentials = (await CredentialService.GetCredentialsAsync()).Any();
