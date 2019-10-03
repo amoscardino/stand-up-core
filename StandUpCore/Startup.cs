@@ -15,6 +15,7 @@ namespace StandUpCore
 
             services.AddLogging(builder => builder.AddBrowserConsole().SetMinimumLevel(LogLevel.Trace));
 
+            services.AddTransient<ConfigurationService>();
             services.AddTransient<CredentialService>();
             services.AddTransient<JiraService>();
         }

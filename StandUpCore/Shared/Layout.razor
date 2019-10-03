@@ -1,4 +1,18 @@
 @inherits LayoutComponentBase
+@inject ConfigurationService ConfigService
+
+@code {
+    string AppVersion { get; set; }
+    string BlazorVersion { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        AppVersion = await ConfigService.GetValueAsync("AppVersion");
+        BlazorVersion = await ConfigService.GetValueAsync("BlazorVersion");
+
+        this.StateHasChanged();
+    }
+}
 
 <nav class="navbar navbar-dark navbar-expand bg-dark mb-4 px-0 shadow-sm">
     <div class="container px-3">
@@ -22,5 +36,5 @@
 
 <footer class="container mt-5 mb-3 text-center text-muted">
     <hr />
-    Stand Up Core 1.2.4 running with Blazor WebAssembly 3.0.0-preview9.19465.2
+    Stand Up Core @AppVersion running with Blazor WebAssembly @BlazorVersion
 </footer>

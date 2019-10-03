@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http.Extensions;
 using StandUpCore.Common;
 using StandUpCore.Models;
 using System.Net.Http;
@@ -11,11 +12,13 @@ namespace StandUpCore.Services
     {
         private readonly CredentialService _credentialService;
         private readonly HttpClient _httpClient;
+        private readonly ConfigurationService _configuration;
 
-        public JiraService(CredentialService credentialService, HttpClient httpClient)
+        public JiraService(CredentialService credentialService, ConfigurationService configuration, HttpClient httpClient)
         {
             _credentialService = credentialService;
             _httpClient = httpClient;
+            _configuration = configuration;
         }
 
         public async Task<JiraTask> GetTaskAsync(string key)
@@ -35,17 +38,18 @@ namespace StandUpCore.Services
 
         private async Task<JiraTask> GetTaskAsync(string key, JiraCredential credential)
         {
-            var url = "https://standupcore-functions.azurewebsites.net/api/jirafunction";
-            var queryString = HttpUtility.ParseQueryString(string.Empty);
-
-            queryString.Add("key", key);
-            queryString.Add("site", credential.SiteUrl);
-            queryString.Add("email", credential.Email);
-            queryString.Add("token", credential.ApiToken);
+            var url = await _configuration.GetValueAsync("JiraServiceUrl");
+            var queryBuilder = new QueryBuilder
+            {
+                { "key", key },
+                { "site", credential.SiteUrl },
+                { "email", credential.Email },
+                { "token", credential.ApiToken }
+            };
 
             try
             {
-                return await _httpClient.GetJsonAsync<JiraTask>($"{url}?{queryString}");
+                return await _httpClient.GetJsonAsync<JiraTask>(url + queryBuilder.ToQueryString());
             }
             catch
             {
