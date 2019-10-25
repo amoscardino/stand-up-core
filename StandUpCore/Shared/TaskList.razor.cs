@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StandUpCore
+namespace StandUpCore.Shared
 {
-    public class TaskListBase : ComponentBase
+    public partial class TaskList
     {
         [Inject]
         public JiraService JiraService { get; set; }
@@ -23,7 +23,7 @@ namespace StandUpCore
         [Parameter]
         public EventCallback<List<JiraTask>> TasksChanged { get; set; }
 
-        protected string Keys { get; set; }
+        private string Keys { get; set; }
 
         protected override void OnInitialized()
         {
@@ -31,7 +31,7 @@ namespace StandUpCore
             Tasks = new List<JiraTask>();
         }
 
-        protected async Task GetTasksAsync()
+        private async Task GetTasksAsync()
         {
             Tasks = new List<JiraTask>();
 

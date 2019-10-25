@@ -11,9 +11,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StandUpCore
+namespace StandUpCore.Pages
 {
-    public class StandUpBase : ComponentBase
+    public partial class StandUp
     {
         [Inject]
         public CredentialService CredentialService { get; set; }
@@ -21,31 +21,29 @@ namespace StandUpCore
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
-        protected StandUp StandUp { get; set; }
-
-        protected bool HasCredentials { get; set; }
-
-        protected string GenerateLabel { get; set; }
+        private StandUpModel Model { get; set; }
+        private bool HasCredentials { get; set; }
+        private string GenerateLabel { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            StandUp = new StandUp();
+            Model = new StandUpModel();
             HasCredentials = (await CredentialService.GetCredentialsAsync()).Any();
             GenerateLabel = "Generate!";
         }
 
-        protected async Task GenerateAsync()
+        private async Task GenerateAsync()
         {
             // window.copyToClipboard is a custom function declared at the bottom of wwwroot/index.html
-            await JSRuntime.InvokeAsync<string>("copyToClipboard", StandUp.Generate());
+            await JSRuntime.InvokeAsync<string>("copyToClipboard", Model.Generate());
 
             GenerateLabel = "Copied to Clipboard!";
-            StateHasChanged();
+            this.StateHasChanged();
 
             await Task.Delay(2500).ContinueWith(t =>
             {
                 GenerateLabel = "Generate!";
-                StateHasChanged();
+                this.StateHasChanged();
             });
         }
     }

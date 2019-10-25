@@ -9,34 +9,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StandUpCore
+namespace StandUpCore.Pages
 {
-    public class CredentialsBase : ComponentBase
+    public partial class Credentials
     {
         [Inject]
         public CredentialService CredentialService { get; set; }
 
-        protected List<JiraCredential> Credentials { get; set; } = new List<JiraCredential>();
-
-        protected JiraCredential NewCredential { get; set; } = new JiraCredential();
+        private List<JiraCredential> SavedCredentials { get; set; }
+        private JiraCredential NewCredential { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Credentials = await CredentialService.GetCredentialsAsync();
-        }
-
-        protected async Task SaveNewCredential()
-        {
-            await CredentialService.AddCredentialAsync(NewCredential);
-            Credentials = await CredentialService.GetCredentialsAsync();
+            SavedCredentials = await CredentialService.GetCredentialsAsync();
             NewCredential = new JiraCredential();
         }
 
-        protected async Task DeleteCredential(Guid id)
+        private async Task SaveNewCredential()
+        {
+            await CredentialService.AddCredentialAsync(NewCredential);
+
+            SavedCredentials = await CredentialService.GetCredentialsAsync();
+            NewCredential = new JiraCredential();
+        }
+
+        private async Task DeleteCredential(Guid id)
         {
             await CredentialService.RemoveCredentialAsync(id);
 
-            Credentials = await CredentialService.GetCredentialsAsync();
+            SavedCredentials = await CredentialService.GetCredentialsAsync();
         }
     }
 }

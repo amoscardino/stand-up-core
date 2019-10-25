@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StandUpCore.Models
 {
-    public class StandUp
+    public class StandUpModel
     {
         public List<JiraTask> CurrentTasks { get; set; }
         public List<JiraTask> DoneTasks { get; set; }
@@ -19,7 +19,7 @@ namespace StandUpCore.Models
         public string TodaySummary { get; set; }
         public string BlockedSummary { get; set; }
 
-        public StandUp()
+        public StandUpModel()
         {
             CurrentTasks = new List<JiraTask>();
             DoneTasks = new List<JiraTask>();
