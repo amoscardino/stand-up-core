@@ -36,14 +36,14 @@ namespace StandUpCore.Functions
 
             var response = await _httpClient.GetAsync($"{site}/rest/api/2/issue/{key}");
 
+            // Reset the auth header so we don't accidentally store the credentials. This is needed
+            // as the HttpClient instance is static and reused between requests.
+            _httpClient.DefaultRequestHeaders.Authorization = null;
+
             if (response == null || !response.IsSuccessStatusCode)
                 return null;
 
             var issue = await response.Content.ReadAsAsync<dynamic>();
-
-            // Reset the auth header so we don't accidentally store the credentials. This is needed
-            // as the HttpClient instance is static and reused between requests.
-            _httpClient.DefaultRequestHeaders.Authorization = null;
 
             try
             {
