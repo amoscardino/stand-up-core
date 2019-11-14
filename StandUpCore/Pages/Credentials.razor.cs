@@ -16,13 +16,12 @@ namespace StandUpCore.Pages
         [Inject]
         public CredentialService CredentialService { get; set; }
 
-        private List<JiraCredential> SavedCredentials { get; set; }
-        private JiraCredential NewCredential { get; set; }
+        private List<JiraCredential> SavedCredentials { get; set; } = new List<JiraCredential>();
+        private JiraCredential NewCredential { get; set; } = new JiraCredential();
 
         protected override async Task OnInitializedAsync()
         {
             SavedCredentials = await CredentialService.GetCredentialsAsync();
-            NewCredential = new JiraCredential();
         }
 
         private async Task SaveNewCredential()
