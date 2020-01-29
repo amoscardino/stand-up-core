@@ -1,4 +1,4 @@
-﻿using Blazor.Extensions.Storage;
+﻿using Blazor.Extensions.Storage.Interfaces;
 using StandUpCore.Models;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ namespace StandUpCore.Services
     {
         private const string STORAGE_KEY = "StandUpCoreCredentials";
 
-        private LocalStorage _localStorage;
+        private ILocalStorage _localStorage;
 
-        public CredentialService(LocalStorage localStorage)
+        public CredentialService(ILocalStorage localStorage)
         {
             _localStorage = localStorage;
         }
