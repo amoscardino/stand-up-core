@@ -1,6 +1,6 @@
 ﻿using Blazor.Extensions.Logging;
 using Blazor.Extensions.Storage;
-using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StandUpCore.Services;
@@ -15,6 +15,7 @@ namespace StandUpCore
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             // Register services
+            builder.Services.AddBaseAddressHttpClient();
             builder.Services.AddStorage();
             builder.Services.AddLogging(builder => builder.AddBrowserConsole().SetMinimumLevel(LogLevel.Trace));
             builder.Services.AddTransient<ConfigurationService>();

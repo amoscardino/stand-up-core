@@ -2,28 +2,29 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <RestoreAdditionalProjectSources>
-            https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json;
-            https://dotnet.myget.org/F/blazor-dev/api/v3/index.json;
-        </RestoreAdditionalProjectSources>
-        <LangVersion>default</LangVersion>
         <RazorLangVersion>3.0</RazorLangVersion>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0-preview2.20160.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0-preview2.20160.5" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0-preview2.20160.5" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview2.20160.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
         <PackageReference Include="Blazor.Extensions.Logging" Version="1.1.0-preview2" />
         <PackageReference Include="Blazor.Extensions.Storage" Version="1.1.0-preview3" />
-        <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.2.0-preview1.20073.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
         <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\StandUpCore.Common\StandUpCore.Common.csproj" />
+        <ProjectReference Include="..\StandUpCore.Common\StandUpCore.Common.csproj" />
     </ItemGroup>
 
+    <!-- When publishing, swap service-worker.published.js in place of service-worker.js -->
+    <ItemGroup Condition="'$(DesignTimeBuild)' != 'true'">
+        <Content Remove="wwwroot\service-worker.js" />
+        <Content Update="wwwroot\service-worker.published.js" Link="wwwroot\service-worker.js" />
+    </ItemGroup>
 </Project>
