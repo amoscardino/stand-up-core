@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.Configuration;
 using StandUpCore.Common;
 using StandUpCore.Models;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -12,13 +14,13 @@ namespace StandUpCore.Services
     {
         private readonly CredentialService _credentialService;
         private readonly HttpClient _httpClient;
-        private readonly ConfigurationService _configuration;
+        private readonly string _baseUrl;
 
-        public JiraService(CredentialService credentialService, ConfigurationService configuration, HttpClient httpClient)
+        public JiraService(CredentialService credentialService, HttpClient httpClient, IConfiguration configuration)
         {
             _credentialService = credentialService;
             _httpClient = httpClient;
-            _configuration = configuration;
+            _baseUrl = configuration.GetValue<string>("JiraServiceUrl");
         }
 
         public async Task<JiraTask> GetTaskAsync(string key)
@@ -38,7 +40,6 @@ namespace StandUpCore.Services
 
         private async Task<JiraTask> GetTaskAsync(string key, JiraCredential credential)
         {
-            var url = await _configuration.GetValueAsync("JiraServiceUrl");
             var queryBuilder = new QueryBuilder
             {
                 { "key", key },
@@ -49,7 +50,7 @@ namespace StandUpCore.Services
 
             try
             {
-                return await _httpClient.GetJsonAsync<JiraTask>(url + queryBuilder.ToQueryString());
+                return await _httpClient.GetFromJsonAsync<JiraTask>(_baseUrl + queryBuilder.ToQueryString());
             }
             catch
             {

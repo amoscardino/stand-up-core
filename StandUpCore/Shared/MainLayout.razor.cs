@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 using StandUpCore.Services;
 
 namespace StandUpCore.Shared
@@ -10,15 +11,15 @@ namespace StandUpCore.Shared
     public partial class MainLayout
     {
         [Inject]
-        public ConfigurationService ConfigService { get; set; }
+        public IConfiguration Configuration { get; set; }
 
         private string AppVersion { get; set; }
         private string BlazorVersion { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            AppVersion = await ConfigService.GetValueAsync("AppVersion");
-            BlazorVersion = await ConfigService.GetValueAsync("BlazorVersion");
+            AppVersion = Configuration.GetValue<string>("AppVersion");
+            BlazorVersion = Configuration.GetValue<string>("BlazorVersion");
 
             this.StateHasChanged();
         }
