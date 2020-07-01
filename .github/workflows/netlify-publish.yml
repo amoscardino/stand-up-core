@@ -1,4 +1,4 @@
-name: NetlifyPublish
+name: Netlify Publish
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301 #Blazor WebAssembly requires 3.1.100
+        dotnet-version: 3.1.301
     
     - name: Build with dotnet
       run: dotnet build StandUpCore/StandUpCore.csproj --configuration Release
@@ -29,5 +29,5 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       with:
-          args: deploy --dir=wwwroot --prod # push dist folder to Netlify
+          args: deploy --dir=wwwroot --prod # push wwwroot folder to Netlify
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
