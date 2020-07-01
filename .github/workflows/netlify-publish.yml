@@ -17,13 +17,13 @@ jobs:
         dotnet-version: 3.1.100 #Blazor WebAssembly requires 3.1.100
     
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build StandUpCore/StandUpCore.csproj --configuration Release
     
       #create Blazor WebAssembly dist output folder in the project directory
-    - name: Publish Blazor webassembly using dotnet
-      run: dotnet publish -c Release --no-build -o ./
+    - name: Publish Blazor WASM using dotnet
+      run: dotnet publish StandUpCore/StandUpCore.csproj -c Release --no-build -o ./
     
-    - name: Publish generated Blazor webassembly to Netlify
+    - name: Publish generated files to Netlify
       uses: netlify/actions/cli@master
       env: # these environment variables are added in github secrets
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
