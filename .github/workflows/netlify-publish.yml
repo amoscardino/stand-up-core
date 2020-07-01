@@ -23,11 +23,9 @@ jobs:
     - name: Publish Blazor WASM using dotnet
       run: dotnet publish StandUpCore/StandUpCore.csproj -c Release --no-build -o ./
     
-    - name: Publish generated files to Netlify
-      uses: netlify/actions/cli@master
-      env: # these environment variables are added in github secrets
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    - name: Netlify Deploy
+      uses: jsmrcaga/action-netlify-deploy@v1.1.0
       with:
-          args: deploy --dir=NetlifyPublish/dist --prod # push dist folder to Netlify
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]' 
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        build_directory: dist/
